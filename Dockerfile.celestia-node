@@ -1,0 +1,10 @@
+FROM "ghcr.io/celestiaorg/celestia-node:v0.11.0-rc1"
+
+USER root
+RUN apk update && apk add --no-cache \
+	jq \
+    curl
+
+# hardcoding the default uid defined in the base layer because
+# ARG USER_NAME is not preserved between layers.
+USER celestia
