@@ -3,7 +3,7 @@ name: Build container image
 on:
   push:
     tags:
-      - "[a-z-]+:[a-z0-9-]+"
+      - "[a-z-]+/[a-z0-9-]+"
 env:
   REGISTRY: ghcr.io
 
@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: extract image name and tag using bash parameter expansion
         run: |
-          image_name=${GITHUB_REF_NAME#*:}
-          image_tag=${GITHUB_REF_NAME%%:*}
+          image_name=${GITHUB_REF_NAME#*/}
+          image_tag=${GITHUB_REF_NAME%%/*}
           echo "image_name=$image_name" >> "$GITHUB_ENV"
           echo "image_tag=$image_tag" >> "$GITHUB_ENV"
       - uses: actions/checkout@v3
